@@ -116,19 +116,6 @@ else
     mv Lockpick_RCM.bin ./bootloader/payloads
 fi
 
-### Fetch latest hwfly_toolbox.bin from https://github.com/hwfly-nx/hwfly-toolbox/releases/latest
-curl -sL https://api.github.com/repos/hwfly-nx/hwfly-toolbox/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo hwfly-toolbox {} >> ../description.txt
-curl -sL https://api.github.com/repos/hwfly-nx/hwfly-toolbox/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o hwfly_toolbox.bin
-if [ $? -ne 0 ]; then
-    echo "hwfly-toolbox download\033[31m failed\033[0m."
-else
-    echo "hwfly-toolbox download\033[32m success\033[0m."
-    mv hwfly_toolbox.bin ./bootloader/payloads
-fi
 
 ### Fetch latest TegraExplorer.bin form https://github.com/zdm65477730/TegraExplorer/releases
 curl -sL https://api.github.com/repos/zdm65477730/TegraExplorer/releases/latest \
@@ -158,37 +145,7 @@ else
     mv CommonProblemResolver.bin ./bootloader/payloads
 fi
 
-### Fetch lastest wiliwili from https://github.com/xfangfang/wiliwili/releases/latest
-curl -sL https://api.github.com/repos/xfangfang/wiliwili/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo wiliwili {} >> ../description.txt
-curl -sL https://api.github.com/repos/xfangfang/wiliwili/releases/latest \
-  | jq '.assets' | jq '.[7].browser_download_url' \
-  | xargs -I {} curl -sL {} -o wiliwili-NintendoSwitch.zip
-if [ $? -ne 0 ]; then
-    echo "wiliwili download\033[31m failed\033[0m."
-else
-    echo "wiliwili download\033[32m success\033[0m."
-    unzip -oq wiliwili-NintendoSwitch.zip
-    mkdir -p ./switch/wiliwili
-    mv wiliwili/wiliwili.nro ./switch/wiliwili
-    rm -rf wiliwili
-    rm wiliwili-NintendoSwitch.zip
-fi
 
-### Fetch lastest HB-Appstore from https://github.com/fortheusers/hb-appstore/releases/latest
-curl -sL https://api.github.com/repos/fortheusers/hb-appstore/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo HB-Appstore {} >> ../description.txt
-curl -sL https://api.github.com/repos/fortheusers/hb-appstore/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o appstore.nro
-if [ $? -ne 0 ]; then
-    echo "HB-Appstore download\033[31m failed\033[0m."
-else
-    echo "HB-Appstore download\033[32m success\033[0m."
-    mv appstore.nro ./switch
-fi
 
 ### Fetch lastest Moonlight-Switch from https://github.com/XITRIX/Moonlight-Switch/releases/tag/v1.0.0
 curl -sL https://api.github.com/repos/XITRIX/Moonlight-Switch/releases/latest \
@@ -204,47 +161,10 @@ else
     mv Moonlight-Switch.nro ./switch
 fi
 
-### Fetch lastest Goldleaf from https://github.com/XorTroll/Goldleaf/releases/latest
-curl -sL https://api.github.com/repos/XorTroll/Goldleaf/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo Goldleaf {} >> ../description.txt
-curl -sL https://api.github.com/repos/XorTroll/Goldleaf/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o Goldleaf.nro
-if [ $? -ne 0 ]; then
-    echo "Goldleaf download\033[31m failed\033[0m."
-else
-    echo "Goldleaf download\033[32m success\033[0m."
-    mv Goldleaf.nro ./switch/Goldleaf
-fi
 
-### Fetch lastest Switch_90DNS_tester from https://github.com/meganukebmp/Switch_90DNS_tester/releases/latest
-curl -sL https://api.github.com/repos/meganukebmp/Switch_90DNS_tester/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo Switch_90DNS_tester {} >> ../description.txt
-curl -sL https://api.github.com/repos/meganukebmp/Switch_90DNS_tester/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o Switch_90DNS_tester.nro
-if [ $? -ne 0 ]; then
-    echo "Switch_90DNS_tester download\033[31m failed\033[0m."
-else
-    echo "Switch_90DNS_tester download\033[32m success\033[0m."
-    mv Switch_90DNS_tester.nro ./switch
-fi
 
-### Fetch lastest Checkpoint from https://github.com/BernardoGiordano/Checkpoint/releases/latest
-curl -sL https://api.github.com/repos/BernardoGiordano/Checkpoint/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo Checkpoint {} >> ../description.txt
-curl -sL https://api.github.com/repos/BernardoGiordano/Checkpoint/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o Checkpoint.nro
-if [ $? -ne 0 ]; then
-    echo "Checkpoint download\033[31m failed\033[0m."
-else
-    echo "Checkpoint download\033[32m success\033[0m."
-    mv Checkpoint.nro ./switch/Checkpoint
-fi
+
+
 
 ### Fetch lastest DBI from https://github.com/rashevskyv/dbi/releases/latest
 curl -sL https://api.github.com/repos/rashevskyv/dbi/releases/latest \
@@ -260,20 +180,7 @@ else
     mv DBI.nro ./switch/DBI
 fi
 
-### Fetch lastest Awoo Installer from https://github.com/dragonflylee/Awoo-Installer/releases/latest
-curl -sL https://api.github.com/repos/dragonflylee/Awoo-Installer/releases/latest \
-  | jq '.name' \
-  | xargs -I {} echo {} >> ../description.txt
-curl -sL https://api.github.com/repos/dragonflylee/Awoo-Installer/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o Awoo-Installer.zip
-if [ $? -ne 0 ]; then
-    echo "Awoo Installer download\033[31m failed\033[0m."
-else
-    echo "Awoo Installer download\033[32m success\033[0m."
-    unzip -oq Awoo-Installer.zip
-    rm Awoo-Installer.zip
-fi
+
 
 ### Fetch lastest Hekate-toolbox from https://github.com/WerWolv/Hekate-Toolbox/releases/latest
 curl -sL https://api.github.com/repos/WerWolv/Hekate-Toolbox/releases/latest \
@@ -318,33 +225,9 @@ else
     mv NXThemesInstaller.nro ./switch
 fi
 
-### Fetch lastest JKSV from https://github.com/J-D-K/JKSV/releases/latest
-curl -sL https://api.github.com/repos/J-D-K/JKSV/releases/latest \
-  | jq '.name' \
-  | xargs -I {} echo JKSV {} >> ../description.txt
-curl -sL https://api.github.com/repos/J-D-K/JKSV/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o JKSV.nro
-if [ $? -ne 0 ]; then
-    echo "JKSV download\033[31m failed\033[0m."
-else
-    echo "JKSV download\033[32m success\033[0m."
-    mv JKSV.nro ./switch
-fi
 
-### Fetch lastest tencent-switcher-gui from https://github.com/CaiMiao/Tencent-switcher-GUI/releases/latest
-curl -sL https://api.github.com/repos/CaiMiao/Tencent-switcher-GUI/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo tencent-switcher-gui {} >> ../description.txt
-curl -sL https://api.github.com/repos/CaiMiao/Tencent-switcher-GUI/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o tencent-switcher-gui.nro
-if [ $? -ne 0 ]; then
-    echo "tencent-switcher-gui download\033[31m failed\033[0m."
-else
-    echo "tencent-switcher-gui download\033[32m success\033[0m."
-    mv tencent-switcher-gui.nro ./switch
-fi
+
+
 
 ### Fetch lastest Breeze from https://github.com/tomvita/Breeze-Beta/releases/latest
 curl -sL https://api.github.com/repos/tomvita/Breeze-Beta/releases/latest \
@@ -375,29 +258,7 @@ else
     mv AtmoPackUpdater.nro ./switch
 fi
 
-### Fetch lastest SwitchTime from https://github.com/3096/switch-time/releases
-curl -sL https://api.github.com/repos/3096/switch-time/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo switch-time {} >> ../description.txt
-curl -sL https://api.github.com/repos/3096/switch-time/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o switch-time.nro
-if [ $? -ne 0 ]; then
-    echo "switch-time download\033[31m failed\033[0m."
-else
-    echo "switch-time download\033[32m success\033[0m."
-    mv switch-time.nro ./switch
-fi
 
-### Fetch QuickNTP
-curl -sL https://raw.githubusercontent.com/huangqian8/SwitchPlugins/main/plugins/QuickNTP.zip -o QuickNTP.zip
-if [ $? -ne 0 ]; then
-    echo "QuickNTP download\033[31m failed\033[0m."
-else
-    echo "QuickNTP download\033[32m success\033[0m."
-    unzip -oq QuickNTP.zip
-    rm QuickNTP.zip
-fi
 
 ### Fetch lastest theme-patches from https://github.com/exelix11/theme-patches
 git clone https://github.com/exelix11/theme-patches
@@ -642,29 +503,9 @@ MissionControl
 sys-con
 ENDOFFILE
 
-### Fetch lastest Zing from https://github.com/tomvita/Zing/releases/latest
-curl -sL https://api.github.com/repos/tomvita/Zing/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo Zing {} >> ../description.txt
-curl -sL https://api.github.com/repos/tomvita/Zing/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o Zing.ovl
-if [ $? -ne 0 ]; then
-    echo "Zing download\033[31m failed\033[0m."
-else
-    echo "Zing download\033[32m success\033[0m."
-    mv Zing.ovl ./switch/.overlays
-fi
 
-### Fetch sys-tune
-curl -sL https://raw.githubusercontent.com/huangqian8/SwitchPlugins/main/plugins/sys-tune.zip -o sys-tune.zip
-if [ $? -ne 0 ]; then
-    echo "sys-tune download\033[31m failed\033[0m."
-else
-    echo "sys-tune download\033[32m success\033[0m."
-    unzip -oq sys-tune.zip
-    rm sys-tune.zip
-fi
+
+
 
 ### Fetch sys-patch
 curl -sL https://raw.githubusercontent.com/huangqian8/SwitchPlugins/main/plugins/sys-patch.zip -o sys-patch.zip
@@ -676,63 +517,43 @@ else
     rm sys-patch.zip
 fi
 
-### Fetch Ultra_Tuner
-curl -sL https://raw.github.com/JiuXia2025/SwitchScript/main/plugins/Ultrahand/Ultra_Tuner.zip -o Ultra_Tuner.zip
-if [ $? -ne 0 ]; then
-    echo "Ultra_Tuner download\033[31m failed\033[0m."
-else
-    echo "Ultra_Tuner download\033[32m success\033[0m."
-    unzip -oq Ultra_Tuner.zip
-    rm Ultra_Tuner.zip
-fi
 
-### Fetch AIO Toolbox
-curl -sL https://raw.github.com/JiuXia2025/SwitchScript/main/plugins/Ultrahand/AIO-Toolbox.zip -o AIO-Toolbox.zip
-if [ $? -ne 0 ]; then
-    echo "AIO-Toolbox download\033[31m failed\033[0m."
-else
-    echo "AIO-Toolbox download\033[32m success\033[0m."
-    unzip -oq AIO-Toolbox.zip
-    rm AIO-Toolbox.zip
-fi
+
+
 
 ### Fetch Switch-OC-Suite(hnayzdf ver.) from https://www.tekqart.com/thread-370908-1-1.html
-#curl -sL https://raw.github.com/JiuXia2025/SwitchScript/main/plugins/Switch-OC-Suite.zip -o Switch-OC-Suite.zip
-#if [ $? -ne 0 ]; then
-#    echo "Switch-OC-Suite download\033[31m failed\033[0m."
-#else
-#    echo "Switch-OC-Suite download\033[32m success\033[0m."
-#    unzip -oq Switch-OC-Suite.zip
-#    rm Switch-OC-Suite.zip
-#fi
-
-### Fetch lastest Switch-OC-Suite from https://github.com/hanai3Bi/Switch-OC-Suite/releases/latest
-curl -sL https://api.github.com/repos/hanai3Bi/Switch-OC-Suite/releases/latest \
-  | jq '.tag_name' \
-  | xargs -I {} echo Switch-OC-Suite {} >> ../description.txt
-curl -sL https://api.github.com/repos/hanai3Bi/Switch-OC-Suite/releases/latest \
-  | jq '.assets' | jq '.[0].browser_download_url' \
-  | xargs -I {} curl -sL {} -o AIO.zip
+curl -sL https://raw.github.com/JiuXia2025/SwitchScript/main/plugins/Switch-OC-Suite.zip -o Switch-OC-Suite.zip
 if [ $? -ne 0 ]; then
     echo "Switch-OC-Suite download\033[31m failed\033[0m."
 else
     echo "Switch-OC-Suite download\033[32m success\033[0m."
-    unzip -oq AIO.zip
-    rm AIO.zip
+    unzip -oq Switch-OC-Suite.zip
+    rm Switch-OC-Suite.zip
 fi
+
+### Fetch lastest Switch-OC-Suite from https://github.com/hanai3Bi/Switch-OC-Suite/releases/latest
+#curl -sL https://api.github.com/repos/hanai3Bi/Switch-OC-Suite/releases/latest \
+#  #| jq '.tag_name' \
+  #| xargs -I {} echo Switch-OC-Suite {} >> ../description.txt
+#curl -sL https://api.github.com/repos/hanai3Bi/Switch-OC-Suite/releases/latest \
+  #| jq '.assets' | jq '.[0].browser_download_url' \
+  #| xargs -I {} curl -sL {} -o AIO.zip
+#if [ $? -ne 0 ]; then
+    #echo "Switch-OC-Suite download\033[31m failed\033[0m."
+#else
+    #echo "Switch-OC-Suite download\033[32m success\033[0m."
+    #unzip -oq AIO.zip
+    #rm AIO.zip
+#fi
 
 ### Fetch Chinese lang
 mkdir -p switch/.overlays/lang/fastCFWswitch
 curl -sL https://raw.githubusercontent.com/zdm65477730/fastCFWswitch/master/lang/zh-Hans.json -o switch/.overlays/lang/fastCFWswitch/zh-Hans.json
 curl -sL https://raw.githubusercontent.com/zdm65477730/fastCFWswitch/master/lang/zh-Hant.json -o switch/.overlays/lang/fastCFWswitch/zh-Hant.json
-mkdir -p switch/.overlays/lang/QuickNTP
-curl -sL https://raw.githubusercontent.com/zdm65477730/QuickNTP/master/lang/zh-Hans.json -o switch/.overlays/lang/QuickNTP/zh-Hans.json
-curl -sL https://raw.githubusercontent.com/zdm65477730/QuickNTP/master/lang/zh-Hant.json -o switch/.overlays/lang/QuickNTP/zh-Hant.json
 mkdir -p switch/.overlays/lang/sys-clk
 curl -sL https://raw.githubusercontent.com/zdm65477730/sys-clk/develop/overlay/lang/zh-Hans.json -o switch/.overlays/lang/sys-clk/zh-Hans.json
 curl -sL https://raw.githubusercontent.com/zdm65477730/sys-clk/develop/overlay/lang/zh-Hant.json -o switch/.overlays/lang/sys-clk/zh-Hant.json
-mkdir -p config/ultrahand/lang
-curl -sL https://raw.githubusercontent.com/ppkantorski/Ultrahand-Overlay/main/lang/zh-cn.json -o config/ultrahand/lang/zh-cn.json
+
 
 ### Delete sys-clk.ovl
 rm switch/.overlays/sys-clk.ovl
